@@ -11,14 +11,6 @@
      <script src="{{ asset('js/app.js') }}" defer></script>
      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    <script>
-        jQuery(document).ready(function($){
-            $("#menu-toggle").click(function(e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
-            });
-        });
-    </script>
 
     <!-- Styles -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -53,10 +45,10 @@
                             </a>
                             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
                                 <li><a class="dropdown-item" href="{{ route('users.index') }}">Manage User</a></li>
-                                <li><a class="dropdown-item" href="{{ route('roles.index') }}">Manage Roles</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
+                                <li><a class="dropdown-item" href="{{ route('roles.index') }}">Manage Roles</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -65,10 +57,10 @@
                             </a>
                             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
                                 <li><a class="dropdown-item" href="{{ route('products.index') }}">Products</a></li>
-                                <li><a class="dropdown-item" href="{{ route('products.create') }}">Create Products</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
+                                <li><a class="dropdown-item" href="{{ route('products.create') }}">Create Products</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -77,10 +69,22 @@
                             </a>
                             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
                                 <li><a class="dropdown-item" href="{{ route('blog.index') }}">Blogs</a></li>
-                                <li><a class="dropdown-item" href="{{ route('blog.create') }}">Create Blogs</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
+                                <li><a class="dropdown-item" href="{{ route('blog.create') }}">Create Blogs</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fs-5 bi-bootstrap"></i><span class="ms-1 d-none d-sm-inline"> {{ Auth::user()->name }}</span>
+                            </a>
+                            <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                              document.getElementById('logout-form').submit();">
+                                 {{ __('Logout') }}
+                                </a>
                             </ul>
                         </li> 
                         @endif
@@ -91,24 +95,48 @@
                             </a>
                             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
                                 <li><a class="dropdown-item" href="{{ route('products.index') }}">Products</a></li>
-                                <li><a class="dropdown-item" href="{{ route('products.create') }}">Create Products</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
+                                <li><a class="dropdown-item" href="{{ route('products.create') }}">Create Products</a></li>
                             </ul>
                         </li>
+                        <li class="dropdown">
+                            <a href="#" class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fs-5 bi-bootstrap"></i><span class="ms-1 d-none d-sm-inline"> {{ Auth::user()->name }}</span>
+                            </a>
+                            <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                              document.getElementById('logout-form').submit();">
+                                 {{ __('Logout') }}
+                                </a>
+                            </ul>
+                        </li> 
                         @endif
                         @if (Auth::user()->hasRole('Editor'))
                         <li class="dropdown">
                             <a href="#" class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fs-5 bi-bootstrap"></i><span class="ms-1 d-none d-sm-inline">Edito Options</span>
+                                <i class="fs-5 bi-bootstrap"></i><span class="ms-1 d-none d-sm-inline">Editor Options</span>
                             </a>
                             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
                                 <li><a class="dropdown-item" href="{{ route('blog.index') }}">Blogs</a></li>
-                                <li><a class="dropdown-item" href="{{ route('blog.create') }}">Create Blogs</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
+                                <li><a class="dropdown-item" href="{{ route('blog.create') }}">Create Blogs</a></li>
+                            </ul>
+                        </li> 
+                        <li class="dropdown">
+                            <a href="#" class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fs-5 bi-bootstrap"></i><span class="ms-1 d-none d-sm-inline"> {{ Auth::user()->name }}</span>
+                            </a>
+                            <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                              document.getElementById('logout-form').submit();">
+                                 {{ __('Logout') }}
+                                </a>
                             </ul>
                         </li> 
                         @endif
@@ -155,20 +183,26 @@
                                 <li><a style="font-weight:bold" class="nav-link" href="#">Admininistrator:</a></li>
                             </li>
                             @endif
+                            @if (Auth::user()->hasRole('Vendor'))
+                            <li class="nav-item">
+                                <li><a style="font-weight:bold" class="nav-link" href="#">Vendor:</a></li>
+                            </li>
+                            @endif
+                            @if (Auth::user()->hasRole('Editor'))
+                            <li class="nav-item">
+                                <li><a style="font-weight:bold" class="nav-link" href="#">Editor:</a></li>
+                            </li>
+                            @endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
-
-
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-
-
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                         </form>
