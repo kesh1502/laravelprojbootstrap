@@ -27,12 +27,13 @@
     <th>Name</th>
     <th>Email</th>
     <th>Roles</th>
-    <th width="280px">Action</th>
+    <th width="140px">Action</th>
   </tr>
   @foreach ($data as $key => $user)
     <tr>
       <td>{{ ++$i }}</td>
       <td>{{ $user->name }}</td>
+      <td>{{ $user->username }}</td>
       <td>{{ $user->email }}</td>
       
       

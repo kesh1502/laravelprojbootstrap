@@ -65,7 +65,6 @@ body {
   display:flex; 
   flex-direction:column;
   justify-content:center;
-  min-height:100vh;
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -103,6 +102,11 @@ address {
   margin-bottom: 1rem;
   font-style: normal;
   line-height: inherit;
+}
+
+.nav-link{
+  font-family: system-ui;
+    color: #181515;
 }
 
 ol,

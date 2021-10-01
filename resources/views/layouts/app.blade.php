@@ -9,8 +9,8 @@
 
     <!-- Scripts -->
      <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script>
         jQuery(document).ready(function($){
             $("#menu-toggle").click(function(e) {
@@ -23,79 +23,103 @@
     <!-- Styles -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
-   <style>
-        #sidebar-wrapper {
-            min-height: 100vh;
-            margin-left: -15rem;
-            -webkit-transition: margin .25s ease-out;
-            -moz-transition: margin .25s ease-out;
-            -o-transition: margin .25s ease-out;
-            transition: margin .25s ease-out;
-        }
-        #sidebar-wrapper .sidebar-heading {
-            padding: 0.875rem 1.25rem;
-            font-size: 1.2rem;
-        }
-        #sidebar-wrapper .list-group {
-            width: 15rem;
-        }
-        #page-content-wrapper {
-            min-width: 100vw;
-        }
-        #wrapper.toggled #sidebar-wrapper {
-            margin-left: 0;
-        }
-        @media (min-width: 768px) {
-        #sidebar-wrapper {
-            margin-left: 0;
-        }
-        #page-content-wrapper {
-            min-width: 0;
-            width: 100%;
-        }
-        #wrapper.toggled #sidebar-wrapper {
-            margin-left: -15rem;
-        }
-    }
-    </style>    
 </head>
 <body>
-    <div class="d-flex toggled" id="wrapper">
-    <!-- Sidebar -->
-    <div class="bg-light border-right" id="sidebar-wrapper">
-    <div class="sidebar-heading">Main Menu</div>
-    <hr>
-    <div class="list-group list-group-flush">
-        <div class="arrow">
-            <li  data-toggle="collapse" data-target="#products" class="collapsed active">
-                <a style="font-size: 20px;" href="#"><i class="fa fa-gift fa-lg"></i> Products <span class="arrow"></span></a>
-              </li>
-              <ul class="sub-menu collapse" id="products">
-                  <li class="active"><a  style="font-size: 15px;" href="/products">Product</a></li>
-                  <li><a  style="font-size: 15px;" href="/products/create">Create Product</a></li>
-              </ul>
-             </div>
-             <hr>
-        <div class="arrow">
-        <li  data-toggle="collapse" data-target="#blogs" class="collapsed active">
-            <a style="font-size: 20px;" href="#"><i class="fa fa-gift fa-lg"></i> Blog <span class="arrow"></span></a>
-          </li>
-          <ul class="sub-menu collapse" id="blogs">
-              <li class="active"><a  style="font-size: 15px;" href="/blog">Blog</a></li>
-              <li><a style="font-size: 15px;"href="/blog/create">Create Blog</a></li>
-          </ul>
-         </div>
-         <hr>
-    </div>
-    </div>
+    
+    
     <!-- /#sidebar-wrapper -->
 
     <!-- Page Content -->
     <div id="page-content-wrapper">
         <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <div class="offcanvas offcanvas-start w-25" tabindex="-1" id="offcanvas" data-bs-keyboard="false" data-bs-backdrop="false">
+                <div class="offcanvas-header">
+                    <h6 class="offcanvas-title d-none d-sm-block" id="offcanvas">Menu</h6>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body px-0">
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
+                        <li class="nav-item">
+                            <a href="/home" class="nav-link text-truncate">
+                                <i class="fs-5 bi-house"></i><span class="ms-1 d-none d-sm-inline">Home</span>
+                            </a>
+                        </li>
+                        @guest
+                        @else
+                        @if (Auth::user()->hasRole('Admin'))
+                        <li class="dropdown">
+                            <a href="#" class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fs-5 bi-bootstrap"></i><span class="ms-1 d-none d-sm-inline">Administrator Options</span>
+                            </a>
+                            <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
+                                <li><a class="dropdown-item" href="{{ route('users.index') }}">Manage User</a></li>
+                                <li><a class="dropdown-item" href="{{ route('roles.index') }}">Manage Roles</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fs-5 bi-bootstrap"></i><span class="ms-1 d-none d-sm-inline">Products</span>
+                            </a>
+                            <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
+                                <li><a class="dropdown-item" href="{{ route('products.index') }}">Products</a></li>
+                                <li><a class="dropdown-item" href="{{ route('products.create') }}">Create Products</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fs-5 bi-bootstrap"></i><span class="ms-1 d-none d-sm-inline">Blogs</span>
+                            </a>
+                            <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
+                                <li><a class="dropdown-item" href="{{ route('blog.index') }}">Blogs</a></li>
+                                <li><a class="dropdown-item" href="{{ route('blog.create') }}">Create Blogs</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                            </ul>
+                        </li> 
+                        @endif
+                        @if (Auth::user()->hasRole('Vendor'))
+                        <li class="dropdown">
+                            <a href="#" class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fs-5 bi-bootstrap"></i><span class="ms-1 d-none d-sm-inline">Vendor Options</span>
+                            </a>
+                            <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
+                                <li><a class="dropdown-item" href="{{ route('products.index') }}">Products</a></li>
+                                <li><a class="dropdown-item" href="{{ route('products.create') }}">Create Products</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                            </ul>
+                        </li>
+                        @endif
+                        @if (Auth::user()->hasRole('Editor'))
+                        <li class="dropdown">
+                            <a href="#" class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fs-5 bi-bootstrap"></i><span class="ms-1 d-none d-sm-inline">Edito Options</span>
+                            </a>
+                            <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
+                                <li><a class="dropdown-item" href="{{ route('blog.index') }}">Blogs</a></li>
+                                <li><a class="dropdown-item" href="{{ route('blog.create') }}">Create Blogs</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                            </ul>
+                        </li> 
+                        @endif
+                        @endguest
+                    </ul>
+                </div>
+            </div>
             
-            <button class="btn btn-secondary" id="menu-toggle">Menu</button>
+            <!-- toggler -->
+            <button class="btn float-end" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button">Menu
+            </button>
             <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
@@ -126,9 +150,11 @@
                                     </li>
                                 @endif
                             @else
-                            <li><a class="nav-link" href="{{ route('users.index') }}">Manage Users</a></li>
-                            <li><a class="nav-link" href="{{ route('roles.index') }}">Manage Role</a></li>
-                            <li><a class="nav-link" href="{{ route('products.index') }}">Manage Product</a></li>
+                            @if (Auth::user()->hasRole('Admin'))
+                            <li class="nav-item">
+                                <li><a style="font-weight:bold" class="nav-link" href="#">Admininistrator:</a></li>
+                            </li>
+                            @endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -162,13 +188,4 @@
 </div>
 
 </body>
-<footer class="text-center text-white" style="background-color: #f1f1f1;">
-  
-    <!-- Copyright -->
-    <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-      © 2021 Copyright:
-      <a class="text-dark" href="/home">Home</a>
-    </div>
-    <!-- Copyright -->
-  </footer>
 </html>
