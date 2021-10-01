@@ -32,7 +32,7 @@ class ProductController extends Controller
         $products = Product::paginate(3);
         //$products = Product::latest();//latest
         //return view('index', compact('products'));
-       return view('index',['products'=> $products]);
+       return view('products.index',['products'=> $products]);
     }
 
     /**
@@ -43,7 +43,7 @@ class ProductController extends Controller
     public function create()
     {
         //
-        return view('create');
+        return view('products.create');
     }
 
     /**
@@ -88,7 +88,7 @@ class ProductController extends Controller
     {
         //
         $products = Product::findOrFail($id);
-        return view('edit', compact('products'));
+        return view('products.edit', compact('products'));
     }
 
     /**
@@ -106,7 +106,7 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'description' => 'required|max:255',
         ]);
-        Product::where('product_id', $id)->update($updateData);
+        Product::where('products.product_id', $id)->update($updateData);
         return redirect('/products')->with('success', 'Product details have been updated');
     }
 

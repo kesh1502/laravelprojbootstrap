@@ -24,7 +24,7 @@ class BlogPostController extends Controller
     {
         //
         $BlogPost = BlogPost::paginate(3); //fetch all blog posts from DB
-        return view('blogpost', ['posts' => $BlogPost]); //returns the view with posts
+        return view('blog.index', ['posts' => $BlogPost]); //returns the view with posts
     }
 
     /**
@@ -35,7 +35,7 @@ class BlogPostController extends Controller
     public function create()
     {
         //
-        return view('createblog');
+        return view('blog.create');
         return redirect('/blog')->with('success', 'Blog details have been updated');
     }
 
@@ -77,7 +77,7 @@ class BlogPostController extends Controller
     public function edit($id)
     {
         $post = BlogPost::findOrFail($id);
-        return view('editblog', compact('post'));
+        return view('blog.edit', compact('post'));
        // return view('editblog', ['post' => $blogPost]); //returns the edit view with the post
     }
 

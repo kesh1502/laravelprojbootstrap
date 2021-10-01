@@ -31,7 +31,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('users', UserController::class);
     Route::resource('products', ProductController::class);
     // The route we have created to show all blog posts.
-    Route::get('/blog', [\App\Http\Controllers\BlogPostController::class, 'blogpost'])->name('blogpost');
+    Route::get('/blog', [\App\Http\Controllers\BlogPostController::class, 'index'])->name('blogpost');
     Route::resource('blog', BlogPostController::class);
 });
 
