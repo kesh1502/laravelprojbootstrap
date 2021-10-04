@@ -106,7 +106,7 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'description' => 'required|max:255',
         ]);
-        Product::where('products.product_id', $id)->update($updateData);
+        Product::where('product_id', $id)->update($updateData);
         return redirect('/products')->with('success', 'Product details have been updated');
     }
 
